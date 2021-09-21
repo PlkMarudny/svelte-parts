@@ -1,4 +1,5 @@
 <script>
+  import { createEventDispatcher } from 'svelte'
   import getInitialData from './getInitialData'
   import RenderField from './field/index.svelte'
 
@@ -7,9 +8,12 @@
   export let submitButton = undefined
   export let errorMessage = undefined
 
+  const dispatch = createEventDispatcher();
+
   let data = getInitialData(fields)
   const setData = (key, value) => {
     data = { ...data, [key]: value }
+    dispatch('isdirty');
   }
 
   const onNativeSubmit = e => {

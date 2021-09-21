@@ -36,6 +36,11 @@ export default fields =>
           ...result,
           [field.property]: field.value
         }
+      } else {
+        return {
+          ...result,
+          [field.property]: ""
+        }
       }
       return result
     },
