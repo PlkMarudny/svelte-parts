@@ -5,12 +5,15 @@
 
   export let fields = []
   export let onSubmit = undefined
+  export let onSaveAsNew = undefined
   export let submitButton = undefined
+  export let submitAsButton = undefined
   export let errorMessage = undefined
-
+  
   const dispatch = createEventDispatcher();
 
   let data = getInitialData(fields)
+
   const setData = (key, value) => {
     data = { ...data, [key]: value }
     dispatch('isdirty');
@@ -22,10 +25,18 @@
       onSubmit(data)
     }
   }
+
+  const onSubmitAsNew = e => {
+    e.preventDefault()
+    if (e.currentTarget.checkValidity() && onSubmit) {
+      onSaveAsNew(data)
+    }
+  }
+
 </script>
 
-<form on:submit={onNativeSubmit}>
-  {#each fields as field}
+<form on:submit|preventDefault={onNativeSubmit} action="#" autocomplete="off">
+  {#each fields as field }
     <RenderField field={field} onChange={setData} />
   {/each}
   {#if errorMessage}
@@ -36,6 +47,9 @@
       <input type="submit" value={submitButton} />
     {:else}
       <input type="submit" />
+    {/if}
+    {#if submitAsButton}
+      <input type="submit" value={submitAsButton} on:click={onSubmitAsNew} />
     {/if}
   </div>
 </form>

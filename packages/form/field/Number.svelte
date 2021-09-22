@@ -12,6 +12,15 @@
       onChange(key, num)
     }
   }
+
+  const handleKeydown = () => {
+		if (event.code == 'Enter' || event.code == 'NumpadEnter') {
+			event.preventDefault()
+			event.target.value
+			value = event.target.value
+			return false
+		}
+	}
 </script>
 
 <div class="field number-field { pristine ? 'pristine' : '' }">
@@ -26,6 +35,7 @@
     step={field.step}
     required={!field.notRequired}
     on:keyup={e => onValueChange(field.property, e.currentTarget.value)}
+    on:keydown={handleKeydown}
     on:change={e => onValueChange(field.property, e.currentTarget.value)}
   />
 </div>

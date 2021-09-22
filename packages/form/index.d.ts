@@ -140,10 +140,12 @@ export interface Data {
 
 interface Props {
   fields: Field[]
+  onSubmitAs?: (data: Data) => void
   onSubmit?: (data: Data) => void
   errorMessage?: string
   submitButton?: string
+  submitAsButton?: string
 }
 
-declare const _default: ({ fields, onSubmit, errorMessage, submitButton }: Props) => any
+declare const _default: ({ fields, onSubmit, errorMessage, submitButton, submitAsButton }: Props) => any
 export default _default
